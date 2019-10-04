@@ -35,7 +35,7 @@ ArrayList<Segment> tail = new ArrayList<Segment>();
 //*
 
 void setup() {
-  size(500, 500);
+  size(1000, 750);
   head = new Segment(250, 250);
   frameRate(20);
   dropFood();
@@ -57,6 +57,7 @@ void dropFood() {
 
 void draw() {
   background(10, 80, 100);
+  text("Your score is " + (tail.size()+1), 900, 745);
   drawFood();
   move();
   drawSnake();
@@ -116,8 +117,20 @@ void checkTailCollision() {
 void keyPressed() {
   //Set the direction of the snake according to the arrow keys pressed
   if (key == CODED) {
-    direction = keyCode;
+  if(keyCode == UP && direction != DOWN){
+  direction = keyCode;
+}
+  if(keyCode == DOWN && direction != UP) {
+  direction = keyCode;
   }
+  if(keyCode == RIGHT && direction != LEFT){
+  direction = keyCode;
+  }
+  if(keyCode == LEFT && direction != RIGHT){
+  direction = keyCode;
+  }
+}
+
 }
 
 void move() {
@@ -163,7 +176,9 @@ void checkBoundaries() {
 void eat() {
   //When the snake eats the food, its tail should grow and more food appear
 if(head.x == foodx && head.y == foody){
+for(int i = 0; i < 100; i++){
 tail.add(new Segment(head.x, head.y));
+}
 foodx = (int)random(width);
 foodx = foodx - (foodx%10);
 foody = (int)random(height);
